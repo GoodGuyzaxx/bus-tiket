@@ -17,10 +17,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->text('address')->nullable();
-            $table->string('id_card_number')->unique();
-            $table->enum('gender', ['male', 'female']);
-            $table->date('birth_date');
             $table->rememberToken();
             $table->timestamps();
         });
