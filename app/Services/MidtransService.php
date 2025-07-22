@@ -1,3 +1,4 @@
+<?php
 namespace App\Services;
 
 use App\Models\Ticket;
@@ -18,7 +19,7 @@ class MidtransService
     public function createTransaction(Ticket $ticket)
     {
         $orderId = 'TICKET-' . time() . '-' . $ticket->id;
-        
+
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
@@ -41,7 +42,7 @@ class MidtransService
 
         try {
             $snapToken = Snap::getSnapToken($params);
-            
+
             $payment = Payment::create([
                 'ticket_id' => $ticket->id,
                 'order_id' => $orderId,
@@ -64,7 +65,7 @@ class MidtransService
         $fraudStatus = $payload['fraud_status'] ?? null;
 
         $payment = Payment::where('order_id', $orderId)->first();
-        
+
         if (!$payment) {
             throw new \Exception('Payment not found');
         }
