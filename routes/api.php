@@ -20,15 +20,17 @@ Route::middleware('auth:api')->prefix('admin')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 
+});
     // Bus routes
     Route::apiResource('buses', BusController::class);
 
     // Route routes
     Route::apiResource('routes', RouteController::class);
+    Route::get('routes/origin/{origin}', [RouteController::class, 'showByOrigin']);
+    Route::get('tickets/route/{id}', [TicketController::class, 'showAllTicketsByIdRoute']);
 
     // Ticket routes
     Route::apiResource('tickets', TicketController::class);
-});
 
 // Protected passenger routes
 Route::middleware('auth:passenger')->prefix('passenger')->group(function () {
@@ -45,6 +47,8 @@ Route::middleware('auth:passenger')->prefix('passenger')->group(function () {
     Route::post('/payments', [PaymentController::class, 'createPayment']);
     Route::get('/payments/{orderId}', [PaymentController::class, 'getPaymentStatus']);
 });
+    Route::get('/payments/user/{ticketsId}', [PaymentController::class, 'getPaymentStatusByUser']);
+
 
 // Midtrans callback route (no auth required)
 Route::post('/payments/callback', [PaymentController::class, 'handleCallback']);

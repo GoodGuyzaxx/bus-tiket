@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bus;
 use App\Models\Route;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class RouteController extends Controller
 {
@@ -72,5 +74,28 @@ class RouteController extends Controller
         return response()->json([
             'message' => 'Route deleted successfully',
         ]);
+    }
+
+    public function showByOrigin(string $origin)
+    {
+        try {
+            $buses = Route::where('origin', $origin)->get();
+
+            if ($buses->isEmpty()) {
+                return response()->json([
+                    'message' => "Tidak ada bus yang ditemukan untuk asal: " . $origin,
+                ], 404);
+            }
+
+            return response()->json([
+                'message' => "Berhasil Menampilkan Data Bus Berdasarkan Asal",
+                'buses' => $buses
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => "Terjadi kesalahan saat mencari bus berdasarkan asal",
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

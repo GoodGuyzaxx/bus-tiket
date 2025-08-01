@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use App\Models\Route;
+use App\Services\MidtransService;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -58,10 +59,24 @@ class TicketController extends Controller
             'payment_status' => 'unpaid',
         ]);
 
-        return response()->json([
-            'message' => 'Ticket booked successfully',
-            'ticket' => $ticket->load(['route.bus']),
-        ], 201);
+        try {
+            $payment = (new MidtransService())->createTransaction($ticket);
+
+            return response()->json([
+                'message' => 'Ticket booked successfully',
+                'ticket' => $ticket->load(['route.bus', 'passenger']),
+                'payment' => $payment,
+            ], 201);
+
+        } catch (\Exception $e) {
+            // If payment creation fails, delete the ticket to maintain consistency
+            $ticket->delete();
+
+            return response()->json([
+                'message' => 'Failed to create payment: ' . $e->getMessage(),
+            ], 500);
+        }
+
     }
 
     public function show(Ticket $ticket)
@@ -89,6 +104,8 @@ class TicketController extends Controller
             'message' => 'Ticket updated successfully',
             'ticket' => $ticket->load(['passenger', 'route.bus']),
         ]);
+
+
     }
 
     public function destroy(Ticket $ticket)
@@ -102,7 +119,21 @@ class TicketController extends Controller
 
     public function userTickets(Request $request)
     {
-        $tickets = auth()->guard('passenger')->user()->tickets()->with(['route.bus'])->get();
+        $tickets = auth()->guard('passenger')->user()->tickets()->with(['route.bus'])->latest()->get();
         return response()->json($tickets);
+    }
+
+    public function  showAllTicketsByIdRoute($id)
+    {
+        $tickets = Ticket::where('route_id', $id)->get();
+
+        if ($tickets->isEmpty()){
+            return response()->json([
+                'message' => "Data Route Tidak Ditemukan"
+            ],404);
+        }
+
+        return  response()->json($tickets);
+
     }
 }

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bus;
-use Illuminate\Http\Request;
+use Http\Discovery\Exception\NotFoundException;
+use http\Env\Response;
+use Illuminate\Http\Request;use Illuminate\Database\Eloquent\ModelNotFoundException;
+use mysql_xdevapi\Exception;
 
 class BusController extends Controller
 {
@@ -37,9 +40,20 @@ class BusController extends Controller
         ], 201);
     }
 
-    public function show(Bus $bus)
+    public function show(string $bus)
     {
-        return response()->json($bus);
+        try {
+            $bus = Bus::findOrFail($bus);
+            return response()->json([
+                'message' => "Berhasil Menampilkan Data Bus",
+                'bus' => $bus
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => "Data Bus Tidak Ditemukan",
+                'error' => $e->getMessage()
+            ], 404);
+        }
     }
 
     public function update(Request $request, Bus $bus)
@@ -67,4 +81,5 @@ class BusController extends Controller
             'message' => 'Bus deleted successfully',
         ]);
     }
+
 }

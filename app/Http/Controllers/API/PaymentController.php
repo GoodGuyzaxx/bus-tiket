@@ -112,4 +112,17 @@ class PaymentController extends Controller
             'data' => $payment
         ]);
     }
+
+    public function getPaymentStatusByUser($ticketId){
+        $payment = Payment::with(['ticket.passenger'])->where('ticket_id', $ticketId)->get();
+        if ($payment->isEmpty()){
+            return response()->json([
+                'message' => "Data Tidak Ditemukan"
+            ],404);
+        }
+
+        return  response()->json(
+           $payment->load('ticket.route.bus')
+        );
+    }
 }
