@@ -36,7 +36,7 @@ class BusSeeder extends Seeder
             'DAMRI AC 19'
         ];
 
-        $statuses = ['active', 'maintenance', 'inactive'];
+        $statuses = "active";
         $usedPlateNumbers = [];
 
         for ($i = 0; $i < 19; $i++) {
@@ -51,7 +51,7 @@ class BusSeeder extends Seeder
                 'name' => $busNames[$i],
                 'plate_number' => $plateNumber,
                 'total_seats' => 19,
-                'status' => $statuses[array_rand($statuses)],
+                'status' => $statuses,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
