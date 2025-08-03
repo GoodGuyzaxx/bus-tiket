@@ -26,7 +26,7 @@ class PassengerController extends Controller
             'phone' => $request->phone,
         ]);
 
-        $token = $passenger->createToken('auth_token')->plainTextToken;
+//        $token = $passenger->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'message' => 'Akun Berhail Dibuat',
