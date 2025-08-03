@@ -8,6 +8,7 @@
     <meta name="description" content="SPK Pemilihan Siswa Berprestasi" />
     <meta name="author" content="Malas Coding" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('frontend/images/logo.png') }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard</title>
 
     {{-- style --}}

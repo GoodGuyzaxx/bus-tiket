@@ -20,13 +20,13 @@
                 </a>
 
                 <div class="sb-sidenav-menu-heading mt-3">TRANSAKSI</div>
-                <a class="nav-link {{ Request::is('admin/tickets*') ? 'active' : '' }}" href="#">
+                <a class="nav-link {{ Request::is('admin/tiket*') ? 'active' : '' }}" href="{{route('tiket.index')}}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-ticket-alt"></i>
                     </div>
                     Tiket
                 </a>
-                <a class="nav-link {{ Request::is('admin/sales*') ? 'active' : '' }}" href="#">
+                <a class="nav-link {{ Request::is('admin/penjualan*') ? 'active' : '' }}" href="{{route('admin.penjualan.index')}}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-receipt"></i>
                     </div>

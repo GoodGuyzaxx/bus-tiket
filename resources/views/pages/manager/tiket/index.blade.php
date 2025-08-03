@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.manager')
 
 @section('content')
     <div class="container-fluid px-4">
@@ -7,7 +7,7 @@
                 <h1 class="mt-4 mb-2">Daftar Tiket</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('manager.dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active">{{ $title ?? 'Tiket' }}</li>
                     </ol>
                 </nav>

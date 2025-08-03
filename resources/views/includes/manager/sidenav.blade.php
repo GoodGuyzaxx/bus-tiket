@@ -2,7 +2,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="{{ route('manager.dashboard') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-th-large"></i></div> Dashboard
                 </a>
 
@@ -11,43 +11,14 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div> Accounts
                 </a>
 
-                <div class="sb-sidenav-menu-heading mt-3">SALES</div> <a class="nav-link {{ Request::is('admin/route*') ? 'active' : '' }}" href="#">
-                    <div class="sb-nav-link-icon"><i class="fas fa-ticket-alt"></i></div> Tickets
+                <div class="sb-sidenav-menu-heading mt-3">TRANSAKSI</div>
+                <a class="nav-link {{ Request::is('manager/tiket*') ? 'active' : '' }}" href="{{route('manager.tiket.index')}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-ticket-alt"></i></div> Tiket
                 </a>
-                <a class="nav-link {{ Request::is('admin/route*') ? 'active' : '' }}" href="#">
-                    <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div> Sales
+                <a class="nav-link {{ Request::is('manager/penjualan*') ? 'active' : '' }}" href="{{route('manager.penjualan.index')}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div> Penjualan
                 </a>
 
-                {{-- Uncomment and adapt your other sections as needed with similar styling --}}
-
-                {{-- Master Data (SPK System Example) --}}
-                {{-- <div class="sb-sidenav-menu-heading mt-3">SPK SYSTEM</div>
-                <a class="nav-link {{ Request::is('dashboard/alternatif*') ? 'active' : '' }}" href="{{ route('alternatif.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-users-class"></i></div>
-                    Alternatives
-                </a>
-                <a class="nav-link {{ Request::is('dashboard/perbandingan*') ? 'active' : '' }}" href="{{ route('perbandingan.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-balance-scale"></i></div>
-                    Comparisons
-                </a>
-                <a class="nav-link {{ Request::is('dashboard/ranking*') ? 'active' : '' }}" href="{{ route('rank.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-trophy"></i></div>
-                    Ranking
-                </a> --}}
-
-                {{-- Admin & Profile Section --}}
-                {{-- @can('admin')
-                <div class="sb-sidenav-menu-heading mt-3">ADMINISTRATION</div>
-                <a class="nav-link {{ Request::is('dashboard/users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
-                    Users
-                </a>
-                @endcan
-                <div class="sb-sidenav-menu-heading mt-3">SETTINGS</div>
-                <a class="nav-link {{ Request::is('dashboard/profile*') ? 'active' : '' }}" href="{{ route('profile.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user-edit"></i></div>
-                    Edit Profile
-                </a> --}}
             </div>
         </div>
         <div class="sb-sidenav-footer">

@@ -65,9 +65,6 @@
                                     <td>{{ $admin->email }}</td>
                                     <td>{{ $admin->role }}</td>
                                     <td class="text-center">
-                                        <a href="" class="btn btn-sm btn-warning me-1" title="Edit">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
                                         <button type="button" class="btn btn-sm btn-danger btnDelete"
                                                 data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal"
                                                 data-id="{{ $admin->id }}"
@@ -92,47 +89,47 @@
         </div>
     </div>
 
-{{--    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">--}}
-{{--        <div class="modal-dialog">--}}
-{{--            <div class="modal-content">--}}
-{{--                <div class="modal-header">--}}
-{{--                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Hapus</h5>--}}
-{{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
-{{--                </div>--}}
-{{--                <div class="modal-body">--}}
-{{--                    Apakah Anda yakin ingin menghapus pengguna <strong id="adminNamePlaceholder"></strong> ini? Tindakan ini tidak dapat dibatalkan.--}}
-{{--                </div>--}}
-{{--                <div class="modal-footer">--}}
-{{--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>--}}
-{{--                    <form id="deleteForm" method="POST" action="">--}}
-{{--                        @csrf--}}
-{{--                        @method('DELETE')--}}
-{{--                        <button type="submit" class="btn btn-danger">Hapus</button>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus pengguna <strong id="adminNamePlaceholder"></strong> ini? Tindakan ini tidak dapat dibatalkan.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <form id="deleteForm" method="POST" action="{{route('manager.user.destroy', $admin->id)}}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
-{{--@push('scripts')--}}
-{{--    <script>--}}
-{{--        document.addEventListener('DOMContentLoaded', function () {--}}
-{{--            const deleteConfirmationModal = document.getElementById('deleteConfirmationModal');--}}
-{{--            const deleteForm = document.getElementById('deleteForm');--}}
-{{--            const adminNamePlaceholder = document.getElementById('adminNamePlaceholder');--}}
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteConfirmationModal = document.getElementById('deleteConfirmationModal');
+            const deleteForm = document.getElementById('deleteForm');
+            const adminNamePlaceholder = document.getElementById('adminNamePlaceholder');
 
-{{--            deleteConfirmationModal.addEventListener('show.bs.modal', function (event) {--}}
-{{--                // Button that triggered the modal--}}
-{{--                const button = event.relatedTarget;--}}
-{{--                // Extract info from data-* attributes--}}
-{{--                const adminId = button.getAttribute('data-id');--}}
-{{--                const adminName = button.getAttribute('data-name');--}}
+            deleteConfirmationModal.addEventListener('show.bs.modal', function (event) {
+                // Button that triggered the modal
+                const button = event.relatedTarget;
+                // Extract info from data-* attributes
+                const adminId = button.getAttribute('data-id');
+                const adminName = button.getAttribute('data-name');
 
-{{--                // Update the modal's content.--}}
-{{--                adminNamePlaceholder.textContent = adminName;--}}
-{{--                deleteForm.action = `/manager/user/${adminId}`; // Adjust your delete route here--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endpush--}}
+                // Update the modal's content.
+                adminNamePlaceholder.textContent = adminName;
+                deleteForm.action = `/manager/user/${adminId}`; // Adjust your delete route here
+            });
+        });
+    </script>
+@endpush
